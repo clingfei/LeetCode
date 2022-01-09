@@ -11,27 +11,32 @@ class Solution {
 public:
     TreeNode* deleteNode(TreeNode* root, int key) {
         if (root == nullptr) return root;
-        TreeNode *t = find(root, key);
-        if (t->left != nullptr && t->left->val == key) {
-            if (t->left->left != nullptr) {
-                
-            }
-        }
-    }
-    TreeNode* find(TreeNode * root, int key) {
-        if (root == nullptr)
+        if (root->val == key && root->left == nullptr && root->right == nullptr) {
+            delete root;
             return nullptr;
-        if (root->val < key) {
-            if (root->right->val == key)
-                return root;
-            return find(root->right, key);
         }
-        if (root->val > key) {
-            if (root->left->val == key)
-                return root;
-            return find(root->left, key);
+        if (root->val == key && root->left == nullptr) {
+            TreeNode *p = root->right;
+            delete root;
+            return p;
         }
-        if (root->val == key)
-            return root;
+        if (root->val == key && root->right == nullptr) {
+            TreeNode *p = root->left;
+            delete root;
+            return p;
+        }
+        if (root->val == key) {
+            TreeNode *p = root->right;
+            while (p->left != nullptr)
+                p = p->left;
+            p->left = root->left;
+            p = root->right;
+            delete root;
+            return p;
+        }
+        root->left = deleteNode(root->left, key);
+        root->right = deleteNode(root->right, key);
+        return root;
     }
+
 };
