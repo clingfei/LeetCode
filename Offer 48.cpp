@@ -8,6 +8,7 @@ public:
     int lengthOfLongestSubstring(string s) {
         unordered_map<char, int> umap;
         int max = 0, cur = -1;
+        
         for (int i = 0; i < s.size(); ++i) {
             if (umap.find(s[i]) != umap.end()) {
                 if (umap[s[i]] > cur)
