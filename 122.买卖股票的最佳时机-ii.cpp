@@ -1,5 +1,5 @@
 /*
- * @lc app=leetcode.cn id=122 lang=golang
+ * @lc app=leetcode.cn id=122 lang=cpp
  *
  * [122] 买卖股票的最佳时机 II
  *
@@ -57,25 +57,20 @@
  * 
  * 
  */
-package leetcode
+#include <vector>
+using namespace std;
 // @lc code=start
-func maxProfit(prices []int) int {
-	dp := make([]int, len(prices))
-	// dp[i] 为第i天的利润，dp[0] = 0
-	// dp[i] = max(dp[j]) j < i
-	// dp[i] = dp[j] + prices[i] - prices[j] //如果第j天买了
-	for i := 1; i < len(prices); i++ {
-		dp[i] = max(prices[i] - prices[i - 1], 0) + dp[i - 1]
-	}
-	return dp[len(prices) - 1]
-}
-
-func max(a, b int) int {
-	if a > b {
-		return a
-	} else {
-		return b
-	}
-}
+class Solution {
+public:
+    int maxProfit(vector<int>& prices) {
+        int size = prices.size();
+        vector<int> dp(size);
+        // dp[i]表示第i天之前的最大收入
+        for (int i = 1; i < size; i++) {
+            dp[i] = dp[i - 1] + max(prices[i] - prices[i - 1], 0);
+        }
+        return dp[size - 1];
+    }
+};
 // @lc code=end
 

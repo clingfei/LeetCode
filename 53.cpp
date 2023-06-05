@@ -4,6 +4,8 @@ using namespace std;
 
 class Solution {
 public:
+    int test(int a, int b) {}
+    int test(int a, int b) {}
     int maxSubArray(vector<int>& nums) {
         int max = INT_MIN;
         int sum = 0;
